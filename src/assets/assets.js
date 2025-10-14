@@ -35,7 +35,7 @@ export const assets = {
     menu_icon,
     cross_icon,
     dropdown_icon,
-    upload_icon,
+
   
 }
 
