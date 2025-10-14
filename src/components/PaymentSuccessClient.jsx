@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 
-const SuccessPage = () => {
+export default function PaymentSuccessClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const orderId = searchParams.get("orderId"); 
+
+  const orderId = searchParams.get("orderId");
+  const sessionId = searchParams.get("sessionId");
+
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-    if (!orderId) return;
-
-    const sessionId = searchParams.get("sessionId");
-    if (!sessionId) {
-      alert("No payment session found");
+    if (!orderId || !sessionId) {
+      alert("Invalid payment session or order ID");
       router.push("/");
       return;
     }
@@ -27,7 +27,6 @@ const SuccessPage = () => {
 
         if (res.data.success) {
           if (res.data.order?.status === "processing") {
-            // 🚀 Redirect to orders page if processing
             router.push("/orders");
           } else {
             setSuccessMessage("Payment verified successfully! Your order is now paid.");
@@ -44,7 +43,7 @@ const SuccessPage = () => {
     };
 
     verifyPayment();
-  }, [orderId, router]);
+  }, [orderId, sessionId, router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
@@ -65,6 +64,4 @@ const SuccessPage = () => {
       </div>
     </div>
   );
-};
-
-export default SuccessPage;
+}
