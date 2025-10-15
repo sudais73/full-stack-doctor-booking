@@ -35,7 +35,7 @@ export async function POST(request) {
           quantity: 1,
         },
       ],
-      success_url: `${origin}/payment-success?sessionId={CHECKOUT_SESSION_ID}`,
+    success_url: `${origin}/payment-success?appointmentId=${appointmentId}&sessionId={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/my-appointments?status=cancelled`,
       metadata: {
         appointmentId: appointmentId,

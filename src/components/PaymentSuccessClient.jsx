@@ -8,14 +8,14 @@ export default function PaymentSuccessClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const orderId = searchParams.get("orderId");
+  const appointmentId = searchParams.get("appointmentId");
   const sessionId = searchParams.get("sessionId");
 
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-    if (!orderId || !sessionId) {
+    if (!appointmentId || !sessionId) {
       alert("Invalid payment session or order ID");
       router.push("/");
       return;
@@ -23,7 +23,7 @@ export default function PaymentSuccessClient() {
 
     const verifyPayment = async () => {
       try {
-        const res = await axios.post("/api/orders/verify-payment", { orderId });
+        const res = await axios.post("/api/user/verify", { sessionId });
 
         if (res.data.success) {
           if (res.data.order?.status === "processing") {
@@ -43,7 +43,7 @@ export default function PaymentSuccessClient() {
     };
 
     verifyPayment();
-  }, [orderId, sessionId, router]);
+  }, [appointmentId, sessionId, router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
@@ -55,7 +55,7 @@ export default function PaymentSuccessClient() {
 
         {!loading && successMessage && (
           <a
-            href="/orders"
+            href="/my-appointments"
             className="mt-6 inline-block px-6 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-800 transition"
           >
             Go to Your Orders
