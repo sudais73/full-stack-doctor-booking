@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.14.0",
     "@stripe/stripe-js": "^7.8.0",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
