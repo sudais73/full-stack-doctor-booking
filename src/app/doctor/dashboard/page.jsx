@@ -65,7 +65,7 @@ const page = () => {
                {!item.cancelled && !item.isCompleted && <button onClick={() => cancellAppointment(item._id)}>
                   ❌
                 </button>}
-                {item.cancelled && <button className='p-1 bg-red-500 hover:bg-red-600 text-white text-sm'>
+                {item.cancelled && <button className='px-4 py-1 bg-red-500 hover:bg-red-600 text-white text-sm'>
                   Cancelled
                 </button>}
               { !item.isCompleted && !item.cancelled && <button onClick={()=>completeAppoinment(item._id)}
